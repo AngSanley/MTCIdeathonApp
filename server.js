@@ -14,7 +14,11 @@ app.get('/timeline', function(req,res){
 });
 
 app.get('/register', (req, res) => {
-   res.sendFile(__dirname + '/public/login.html');
+   res.sendFile(__dirname + '/public/register.html');
+});
+
+app.get('/dashboard', function(req,res){
+    res.sendFile(__dirname + '/public/dashboard.html')
 });
 
 app.get('*', function(req, res){

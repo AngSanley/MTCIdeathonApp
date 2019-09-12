@@ -1,5 +1,6 @@
 @import url("fontawesome-all.min.css");
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:100,400,100italic,400italic,800");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+Sans:900&display=swap");
 
 /*
 	Landed by HTML5 UP
@@ -103,6 +104,11 @@ input, select, textarea {
 		font-size: 15pt;
 		font-weight: 100;
 		line-height: 1.75em;
+	}
+
+	h2 {
+		font-family: "Alegreya Sans", sans-serif !important;
+		text-transform: uppercase;
 	}
 
 	a {
@@ -679,6 +685,13 @@ input, select, textarea {
 			}
 
 		}
+
+/* Backbutton */
+	.backbutton {
+		text-align: center;
+		margin-top: 10pt;
+		color: #ffffff;
+	}
 
 /* Row */
 
