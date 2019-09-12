@@ -17,6 +17,7 @@
                 <div class="tab" style="width: 100%">
                     <div class="card-body" style="width: 100%">
                         <h5 class="card-title mx-auto" style="color: #1c1d26">Hi, what is your Binusian ID</h5>
+                        <small style="color: red" hidden id="error_message">Invalid NIM, tot</small>
                         <input id="input0" class="form-control mx-auto" type="text" maxlength="10" style="border: 1px solid #1c1d26; width: 80%;">
                     </div>
                 </div>
@@ -70,32 +71,25 @@
         }
 
         function nextPrev(n) {
-            // This function will figure out which tab to display
             var x = document.getElementsByClassName("tab");
-            // Exit the function if any field in the current tab is invalid:
             if (n === 1 && !validateForm()) return false;
-            // Hide the current tab:
             x[currentTab].style.display = "none";
-            // Increase or decrease the current tab by 1:
             currentTab = currentTab + n;
-            // if you have reached the end of the form... :
             if (currentTab >= x.length) {
-                //...the form gets submitted:
                 document.getElementById("regForm").submit();
                 return false;
             }
-            // Otherwise, display the correct tab:
             showTab(currentTab);
         }
 
         function validateForm() {
             let valid = true;
-            const formInput = document.querySelector('#input' + currentTab);
+            const formInput = document.getElementById("error_message");
 
             if (currentTab === 0) {
                 if (isNaN(formInput.value) || formInput.value.length !== 10) {
                     valid = false;
-                    formInput.className += ' invalid';
+                    formInput.hidden = false;
                     alert('invalid');
                 }
             }
