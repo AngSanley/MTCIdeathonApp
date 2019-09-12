@@ -10,7 +10,7 @@ module.exports = (app, apiUrl) => {
     });
     
     app.get('/register', (req, res) => {
-       res.sendFile(__dirname + '/public/login.html');
+       res.sendFile(__dirname + '/public/register.html');
     });
     
     app.get('*', function(req, res){
