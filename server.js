@@ -8,3 +8,7 @@ app.use(express.static('public'));
 app.get('/', function(req,res){
     res.sendFile(__dirname + '/public/home.html');
 });
+
+app.get('*', function(req, res){
+    res.status(404).sendFile(__dirname + '/public/not-found.html');
+});
