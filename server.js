@@ -1,26 +1,13 @@
 let express = require('express');
 let app = express();
+let api = require('./api');
+let bodyParser = require('body-parser');
+let routes = require('./routes');
+let apiUrl = "/api/v1";
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.listen(8000, '0.0.0.0');
-
 app.use(express.static('public'));
 
-app.get('/', function(req,res){
-    res.sendFile(__dirname + '/public/home.html');
-});
-
-app.get('/timeline', function(req,res){
-    res.sendFile(__dirname + '/public/timeline.html');
-});
-
-app.get('/register', (req, res) => {
-   res.sendFile(__dirname + '/public/register.html');
-});
-
-app.get('/dashboard', function(req,res){
-    res.sendFile(__dirname + '/public/dashboard.html')
-});
-
-app.get('*', function(req, res){
-    res.status(404).sendFile(__dirname + '/public/not-found.html');
-});
+routes(app, apiUrl);
