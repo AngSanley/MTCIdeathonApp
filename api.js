@@ -129,7 +129,7 @@ exports.getName = (req, res) => {
 
 exports.tempSubmitProposal = (req, res) => {
     if (!req.file) {
-        res.send("apa pulak yang kau kumpul, tot");
+        res.redirect("/proposalupload?error=Please select a file to upload");
     } else {
         const teamName = req.body.team_name;
         const leaderNim = req.body.leader_nim;
@@ -146,13 +146,13 @@ exports.tempSubmitProposal = (req, res) => {
         let sql = 'INSERT INTO `temp_proposal_submit` (`team_name`, `leader_nim`, `leader_name`, `member1_nim`, `member1_name`, `member2_nim`, `member2_name`, `submission`) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)';
         connection.query(sql, [teamName, leaderNim, leaderName, member1Nim, member1Name, member2Nim, member2Name], (e, r) => {
             if (e) {
-                res.send('Error occured');
+                res.redirect("/proposalupload?error=An error occured");
                 console.log(e);
                 fs.unlink('./uploads/' + teamName.split(' ').join('_') + '.pdf', function(err) {
                     if (err) throw err;
                 });
             } else {
-                res.send("Hao xiang hao xiang");
+                res.redirect("/proposalupload?success=1");
             }
         });
     }
