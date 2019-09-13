@@ -42,7 +42,7 @@
                 <label for="teamLeaderNim">Team Leader's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" name="leader_nim" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
+                        <input type="tel" name="leader_nim" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" onblur="verifyNim('teamLeaderNim', 'teamLeaderName')" required>
                     </div>
                     <div class="col-sm-1">
                         <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
@@ -65,7 +65,7 @@
                 <label for="member1Nim">Member 1's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" name="member1_nim" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
+                        <input type="tel" name="member1_nim" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" onblur="verifyNim('member1Nim', 'member1Name')" required>
                     </div>
                     <div class="col-sm-1">
                         <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
@@ -88,7 +88,7 @@
                 <label for="member2Nim">Member 2's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" name="member2_nim" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
+                        <input type="tel" name="member2_nim" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" onblur="verifyNim('member2Nim', 'member2Name')" required>
                     </div>
                     <div class="col-sm-1">
                         <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
