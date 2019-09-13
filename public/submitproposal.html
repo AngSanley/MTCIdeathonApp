@@ -21,8 +21,20 @@
     </header>
 
     <div class="container">
-        <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
         <div class="col-sm-12 p-5">
+
+        <div id="successAlert" class="alert alert-success" role="alert" hidden>
+            <h4 class="alert-heading">Well done!</h4>
+            <p>Aww yeah, you successfully submitted your first proposal. Now sit back and relax while we review your submission.</p>
+        </div>
+
+        <div id="errorAlert" class="alert alert-danger" role="alert" hidden>
+                <h4 class="alert-heading">Oh no!</h4>
+                <p><span id="errorMsg">Error message</span></p>
+            </div>
+
+        <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
+        
             <p>
                 <h3>Howdy! Please note that you only need to submit this form once.</h3>
             </p>
@@ -115,8 +127,8 @@
             <hr>
 
             <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
         </form>
+        </div>
     </div>
 
     <!-- Optional JavaScript -->
@@ -134,6 +146,21 @@
     <script>
         var url = new URL(window.location.href);
         var nim = url.searchParams.get("nim");
+        var error = url.searchParams.get("error");
+        var success = url.searchParams.get("success");
+
+        if (error != null) {
+            var errorAlert = document.getElementById("errorAlert");
+            var errorMsg = document.getElementById("errorMsg");
+
+            errorAlert.hidden = false;
+            errorMsg.innerHTML = error;
+        }
+
+        if (success != null) {
+            var errorAlert = document.getElementById("successAlert");
+            if (success == 1) errorAlert.hidden = false;
+        }
         
         if (nim != null) {
             document.getElementById("teamLeaderNim").value = nim;
