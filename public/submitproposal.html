@@ -148,7 +148,7 @@
                 "nim": document.getElementById(nim).value
             }));
             xhr.onload = function () {
-                var jsonResponse = JSON.parse(xhr.responseText);
+                var jsonResponse = JSON.parse(xhr.response);
                 if (jsonResponse.response.name != null) {
                     document.getElementById(output).value = jsonResponse.response.name;
                 } else if (jsonResponse.response.message != null) {
