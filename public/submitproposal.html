@@ -7,8 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+
+    <style>
+        .bd-example-modal-lg .modal-dialog {
+            display: table;
+            position: relative;
+            margin: 0 auto;
+            top: calc(50% - 24px);
+        }
+    
+        .bd-example-modal-lg .modal-dialog .modal-content {
+            background-color: transparent;
+            border: none;
+        }
+  </style>
 
     <title>Hello, world!</title>
 </head>
@@ -20,10 +35,17 @@
         </nav>
     </header>
 
+    <div class="modal fade bd-example-modal-lg" data-backdrop="static" data-keyboard="false" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content" style="width: 48px">
+                <span class="fa fa-spinner fa-spin fa-3x"></span>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="col-sm-12 p-5">
-
-        <div id="successAlert" class="alert alert-success" role="alert" hidden>
+            <div id="successAlert" class="alert alert-success" role="alert" hidden>
             <h4 class="alert-heading">Well done!</h4>
             <p>Aww yeah, you successfully submitted your first proposal. Now sit back and relax while we review your submission.</p>
         </div>
@@ -149,6 +171,11 @@
         var error = url.searchParams.get("error");
         var success = url.searchParams.get("success");
 
+        function showLoading(enabled) {
+            if (enabled) $('.modal').modal('show');
+            else $('.modal').modal('hide');
+        }
+
         if (error != null) {
             var errorAlert = document.getElementById("errorAlert");
             var errorMsg = document.getElementById("errorMsg");
@@ -169,11 +196,17 @@
 
         function verifyNim(nim, output) {
             let valid = true;
+            
+            showLoading(true);
 
             if (document.getElementById(nim).value.length != 10) valid = false;
 
-            if (valid) getName(nim, output);
-            else alert("NIM Invalid");
+            if (valid) {
+                getName(nim, output);
+            } else {
+                alert("NIM Invalid");
+                showLoading(false);
+            }
         }
 
         function getName(nim, output) {
@@ -188,12 +221,15 @@
                 var jsonResponse = JSON.parse(xhr.response);
                 if (jsonResponse.response.name != null) {
                     document.getElementById(output).value = jsonResponse.response.name;
+                    showLoading(false);
                 } else if (jsonResponse.response.message != null) {
                     alert(jsonResponse.response.message);
+                    showLoading(false);
                 }
             };
             xhr.onerror = function () {
                 alert("Request failed");
+                showLoading(false);
             };
         }
     </script>
