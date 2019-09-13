@@ -2,6 +2,7 @@ const connection = require('./conn');
 const response = require('./res');
 const md5 = require('md5');
 const randomString = require('randomstring');
+const axios = require('axios');
 
 exports.registerUser = (req, res) => {
     const nim = req.body.nim;
@@ -110,3 +111,17 @@ exports.newTeam = (req, res) => {
         }
     });
 };
+
+exports.getName = (req, res) => {
+    const NIM = req.body.nim;
+    axios.post('http://passthrough.mtcbin.us:3001/extractBinusian', {
+        nim: NIM
+    })
+        .then((res1) => {
+            response.ok(res, res1.data.response);
+        })
+        .catch((error) => {
+            console.error(error);
+            response.notOk(res, error.message);
+        })
+}
