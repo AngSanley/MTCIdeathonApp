@@ -128,9 +128,6 @@ exports.getName = (req, res) => {
 };
 
 exports.tempSubmitProposal = (req, res) => {
-    fs.unlink('./uploads/Dream_Morning.pdf', function(err) {
-        if (err) throw err;
-    });
     if (!req.file) {
         res.send("apa pulak yang kau kumpul, tot");
     } else {
@@ -146,26 +143,33 @@ exports.tempSubmitProposal = (req, res) => {
             if (err) throw err;
         });
 
-        let sql = "SELECT * FROM `temp_proposal_submit` WHERE `team_name` = ? OR `leader_nim` = ? OR `member1_nim` = ? OR `member2_nim` = ?";
-        connection.query(sql, [teamName, leaderNim, member1Nim, member2Nim], (e, r) => {
+        let sql = 'INSERT INTO `temp_proposal_submit` (`team_name`, `leader_nim`, `leader_name`, `member1_nim`, `member1_name`, `member2_nim`, `member2_name`, `submission`) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)';
+        connection.query(sql, [teamName, leaderNim, leaderName, member1Nim, member1Name, member2Nim, member2Name], (e, r) => {
             if (e) {
-                res.send('Error occurred');
+                res.send('Error occured');
                 console.log(e);
+                fs.unlink('./uploads/' + teamName.split(' ').join('_') + '.pdf', function(err) {
+                    if (err) throw err;
+                });
             } else {
-                if (r.length === 0) {
-                    let sql1 = 'INSERT INTO `temp_proposal_submit` (`team_name`, `leader_nim`, `leader_name`, `member1_nim`, `member1_name`, `member2_nim`, `member2_name`, `submission`) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)';
-                    connection.query(sql1, [teamName, leaderNim, leaderName, member1Nim, member1Name, member2Nim, member2Name], (e1, r1) => {
-                        if (e1) {
-                            res.send('Error occured');
-                            console.log(e1);
-                        } else {
-                            res.send("Hao xiang hao xiang");
-                        }
-                    });
-                } else {
-                    res.send('Team name not available or someone have joined another team.');
-                }
+                res.send("Hao xiang hao xiang");
             }
         });
     }
+};
+
+exports.checkNim = (req, res) => {
+    const nim = req.body.nim;
+
+    let sql = 'SELECT * FROM `temp_proposal_submit` WHERE `leader_nim` = ? OR `member1_nim` = ? OR `member2_nim` = ?';
+    connection.query(sql, [nim, nim, nim], (e, r) => {
+        if (e) {
+            response.notOk(res, 'Error occured. (1)');
+            console.log(e);
+        } else if (r.length === 0) {
+            response.ok(res, {"message": 'User may register.'});
+        } else {
+            response.notOk(res, 'User has registered for another team');
+        }
+    });
 };
