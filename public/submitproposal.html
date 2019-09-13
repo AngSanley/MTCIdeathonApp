@@ -30,7 +30,7 @@
                 <label for="teamName">Team Name</label>
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="teamName" placeholder="Enter something creative">
+                        <input type="text" class="form-control" id="teamName" placeholder="Enter something creative" required>
                     </div>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 <label for="teamLeaderNim">Team Leader's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
                     </div>
                     <div class="col-sm-1">
                         <button class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
@@ -53,7 +53,7 @@
                 <label for="teamLeaderName">Team Leader's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="teamLeaderName" placeholder="Click Verify" disabled>
+                        <input type="text" class="form-control" id="teamLeaderName" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                 <label for="member1Nim">Member 1's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
                     </div>
                     <div class="col-sm-1">
                         <button class="btn btn-primary" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
@@ -76,7 +76,7 @@
                 <label for="member1Name">Member 1's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="member1Name" placeholder="Click Verify" disabled>
+                        <input type="text" class="form-control" id="member1Name" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@
                 <label for="member2Nim">Member 2's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
                     </div>
                     <div class="col-sm-1">
                         <button class="btn btn-primary" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
@@ -99,7 +99,7 @@
                 <label for="member2Name">Member 2's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="member2Name" placeholder="Click Verify" disabled>
+                        <input type="text" class="form-control" id="member2Name" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
