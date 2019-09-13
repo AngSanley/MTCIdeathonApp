@@ -21,6 +21,7 @@
     </header>
 
     <div class="container">
+        <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
         <div class="col-sm-12 p-5">
             <p>
                 <h3>Howdy! Please note that you only need to submit this form once.</h3>
@@ -30,7 +31,7 @@
                 <label for="teamName">Team Name</label>
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="teamName" placeholder="Enter something creative" required>
+                        <input type="text" name="team_name" class="form-control" id="teamName" placeholder="Enter something creative" required>
                     </div>
                 </div>
             </div>
@@ -41,10 +42,10 @@
                 <label for="teamLeaderNim">Team Leader's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
+                        <input type="tel" name="leader_nim" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
+                        <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -53,7 +54,7 @@
                 <label for="teamLeaderName">Team Leader's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="teamLeaderName" placeholder="Click Verify" readonly required>
+                        <input type="text" name="leader_name" class="form-control" id="teamLeaderName" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
@@ -64,10 +65,10 @@
                 <label for="member1Nim">Member 1's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
+                        <input type="tel" name="member1_nim" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
+                        <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -76,7 +77,7 @@
                 <label for="member1Name">Member 1's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="member1Name" placeholder="Click Verify" readonly required>
+                        <input type="text" name="member1_name" class="form-control" id="member1Name" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
@@ -87,10 +88,10 @@
                 <label for="member2Nim">Member 2's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
+                        <input type="tel" name="member2_nim" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
+                        <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -99,7 +100,7 @@
                 <label for="member2Name">Member 2's Name</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="text" class="form-control" id="member2Name" placeholder="Click Verify" readonly required>
+                        <input type="text" name="member2_name" class="form-control" id="member2Name" placeholder="Click Verify" readonly required>
                     </div>
                 </div>
             </div>
@@ -108,13 +109,14 @@
 
             <div class="form-group">
                 <label for="proposalFile">Proposal file (format: pdf)</label>
-                <input type="file" class="form-control-file" id="proposalFile" accept=".pdf">
+                <input type="file" class="form-control-file" name="filetoupload" id="proposalFile" accept=".pdf">
             </div>
 
             <hr>
 
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        </form>
     </div>
 
     <!-- Optional JavaScript -->
