@@ -55,101 +55,112 @@
                 <p><span id="errorMsg">Error message</span></p>
             </div>
 
-        <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
-        
-            <p>
+            <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
+
+                <p>
                 <h3>Howdy! Please note that you only need to submit this form once.</h3>
-            </p>
+                </p>
 
-            <div class="form-group">
-                <label for="teamName">Team Name</label>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <input type="text" name="team_name" class="form-control" id="teamName" placeholder="Enter something creative" required>
+                <div class="form-group">
+                    <label for="teamName">Team Name</label>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="text" name="team_name" class="form-control" id="teamName" placeholder="Enter something creative" required>
+                            <small id="teamNameError" class="text-danger" hidden>Field can't be empty</small>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <hr>
+                <hr>
 
-            <div class="form-group">
-                <label for="teamLeaderNim">Team Leader's NIM</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="tel" name="leader_nim" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
-                    </div>
-                    <div class="col-sm-1">
-                        <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="teamLeaderName">Team Leader's Name</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="text" name="leader_name" class="form-control" id="teamLeaderName" placeholder="Click Verify" readonly required>
+                <div class="form-group">
+                    <label for="teamLeaderNim">Team Leader's NIM</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="tel" name="leader_nim" min="10" max="10" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM" required>
+                            <small id="leaderNimError" class="text-danger mb-1" hidden>Must be 10 digit number<br></small>
+                            <small id="leaderNimRegistered" class="text-danger mb-1" hidden>Nim has been registered<br></small>
+                            <small id="leaderNimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
+                        </div>
+                        <div class="col-sm-1">
+                            <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <hr>
-
-            <div class="form-group">
-                <label for="member1Nim">Member 1's NIM</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="tel" name="member1_nim" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
+                <div class="form-group">
+                    <label for="teamLeaderName">Team Leader's Name</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="text" name="leader_name" class="form-control" id="teamLeaderName" placeholder="Click Verify" readonly required>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="member1Name">Member 1's Name</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="text" name="member1_name" class="form-control" id="member1Name" placeholder="Click Verify" readonly required>
+                <hr>
+
+                <div class="form-group">
+                    <label for="member1Nim">Member 1's NIM</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="tel" name="member1_nim" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM" required>
+                            <small id="member1NimError" class="text-danger mb-1" hidden>Must be 10 digit number<br></small>
+                            <small id="member1NimRegistered" class="text-danger mb-1" hidden>Nim has been registered<br></small>
+                            <small id="member1NimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <hr>
-
-            <div class="form-group">
-                <label for="member2Nim">Member 2's NIM</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="tel" name="member2_nim" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
-                    </div>
-                    <div class="col-sm-1">
-                        <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
+                <div class="form-group">
+                    <label for="member1Name">Member 1's Name</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="text" name="member1_name" class="form-control" id="member1Name" placeholder="Click Verify" readonly required>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <label for="member2Name">Member 2's Name</label>
-                <div class="row">
-                    <div class="col-sm-11">
-                        <input type="text" name="member2_name" class="form-control" id="member2Name" placeholder="Click Verify" readonly required>
+                <hr>
+
+                <div class="form-group">
+                    <label for="member2Nim">Member 2's NIM</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="tel" name="member2_nim" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM" required>
+                            <small id="member2NimError" class="text-danger mb-1" hidden>Must be 10 digit number<br></small>
+                            <small id="member2NimRegistered" class="text-danger mb-1" hidden>Nim has been registered<br></small>
+                            <small id="member2NimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
+                        </div>
+                        <div class="col-sm-1">
+                            <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <hr>
+                <div class="form-group">
+                    <label for="member2Name">Member 2's Name</label>
+                    <div class="row">
+                        <div class="col-sm-11">
+                            <input type="text" name="member2_name" class="form-control" id="member2Name" placeholder="Click Verify" readonly required>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <label for="proposalFile">Proposal file (format: pdf)</label>
-                <input type="file" class="form-control-file" name="filetoupload" id="proposalFile" accept=".pdf">
-            </div>
+                <hr>
 
-            <hr>
+                <div class="form-group">
+                    <label for="proposalFile">Proposal file (format: pdf)</label>
+                    <input type="file" class="form-control-file" name="filetoupload" id="proposalFile" accept=".pdf">
+                    <small id="proposalFileError" class="text-danger mb-1" hidden>Can't be empty</small>
+                </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
+                <hr>
+
+                <button id="submit-button" type="button" class="btn btn-primary">Submit</button>
+            </form>
         </div>
     </div>
 
@@ -175,6 +186,78 @@
             if (enabled) $('.modal').modal('show');
             else $('.modal').modal('hide');
         }
+
+        document.querySelector('#submit-button').onclick = () => {
+            const teamName = document.querySelector('#teamName');
+            const leaderNim = document.querySelector('#teamLeaderNim');
+            const leaderName = document.querySelector('#teamLeaderName');
+            const member1Nim = document.querySelector('#member1Nim');
+            const member1Name = document.querySelector('#member1Name');
+            const member2Nim = document.querySelector('#member2Nim');
+            const member2Name = document.querySelector('#member2Name');
+            const proposalFile = document.querySelector('#proposalFile');
+            let validated = true;
+
+            if (teamName.value === '') {
+                document.querySelector('#teamNameError').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#teamNameError').hidden = true;
+            }
+
+            if (leaderNim.value.length !== 10 || isNaN(leaderNim.value)) {
+                document.querySelector('#leaderNimError').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#leaderNimError').hidden = true;
+            }
+
+            if (leaderName.value === '') {
+                document.querySelector('#leaderNimNotValidated').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#leaderNimNotValidated').hidden = true;
+            }
+
+            if (member1Nim.value.length !== 10 || isNaN(member1Nim.value)) {
+                document.querySelector('#member1NimError').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#member1NimError').hidden = true;
+            }
+
+            if (member1Name.value === '') {
+                document.querySelector('#member1NimNotValidated').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#member1NimNotValidated').hidden = true;
+            }
+
+            if (member2Nim.value.length !== 10 || isNaN(member2Nim.value)) {
+                document.querySelector('#member2NimError').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#member2NimError').hidden = true;
+            }
+
+            if (member2Name.value === '') {
+                document.querySelector('#member2NimNotValidated').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#member2NimNotValidated').hidden = true;
+            }
+
+            if (proposalFile.files.length === 0) {
+                document.querySelector('#proposalFileError').hidden = false;
+                validated = false;
+            } else {
+                document.querySelector('#proposalFileError').hidden = true;
+            }
+
+            if (validated) {
+                document.querySelector('#submit-form').submit();
+            }
+        };
 
         if (error != null) {
             var errorAlert = document.getElementById("errorAlert");
