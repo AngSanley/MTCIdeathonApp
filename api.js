@@ -167,9 +167,9 @@ exports.checkNim = (req, res) => {
             response.notOk(res, 'Error occured. (1)');
             console.log(e);
         } else if (r.length === 0) {
-            response.ok(res, {"message": 'User may register.'});
+            response.ok(res, {"message": 'ok'});
         } else {
-            response.notOk(res, 'User has registered for another team');
+            response.ok(res, {"message": "not ok"});
         }
     });
 };

@@ -55,7 +55,7 @@
                 <p><span id="errorMsg">Error message</span></p>
             </div>
 
-            <form method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
+            <form id="submit-form" method="post" enctype="multipart/form-data" action="./api/v1/temp/upload">
 
                 <p>
                 <h3>Howdy! Please note that you only need to submit this form once.</h3>
@@ -83,7 +83,7 @@
                             <small id="leaderNimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
                         </div>
                         <div class="col-sm-1">
-                            <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
+                            <button type="button" class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName', 1)">Verify</button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                             <small id="member1NimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
                         </div>
                         <div class="col-sm-1">
-                            <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
+                            <button class="btn btn-primary" type="button" onclick="verifyNim('member1Nim', 'member1Name', 2)">Verify</button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                             <small id="member2NimNotValidated" class="text-danger mb-1" hidden>Verify your Nim<br></small>
                         </div>
                         <div class="col-sm-1">
-                            <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
+                            <button class="btn btn-primary" type="button" onclick="verifyNim('member2Nim', 'member2Name', 3)">Verify</button>
                         </div>
                     </div>
                 </div>
@@ -277,37 +277,64 @@
             verifyNim("teamLeaderNim", "teamLeaderName");
         }
 
-        function verifyNim(nim, output) {
+        function verifyNim(nim, output, n) {
             let valid = true;
             if (document.getElementById(nim).value.length != 10) valid = false;
 
-            if (valid) getName(nim, output);
+            if (valid) getName(nim, output, n);
             else  alert("NIM Invalid");
         }
 
-        function getName(nim, output) {
-            showLoading(true);
-            var xhr = new XMLHttpRequest();
-            var url = "./api/v1/users/getname";
-            xhr.open("POST", url, true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                "nim": document.getElementById(nim).value
-            }));
-            xhr.onload = function () {
-                var jsonResponse = JSON.parse(xhr.response);
-                if (jsonResponse.response.name != null) {
-                    document.getElementById(output).value = jsonResponse.response.name;
-                    showLoading(false);
-                } else if (jsonResponse.response.message != null) {
-                    alert(jsonResponse.response.message);
-                    showLoading(false);
+        function getName(nim, output, n) {
+            let id = '';
+            if (n === 1) {
+                id = 'leaderNimRegistered';
+            } else if (n === 2) {
+                id = 'member1NimRegistered';
+            } else if (n === 3) {
+                id = 'member2NimRegistered';
+            }
+
+            const xhr1 = new XMLHttpRequest();
+            const url1 = './api/v1/users/isregistered';
+            xhr1.open('POST', url1, true);
+            xhr1.setRequestHeader('content-type', 'application/json');
+            xhr1.onreadystatechange = () => {
+                if (xhr1.readyState === XMLHttpRequest.DONE) {
+                    if (xhr1.status === 200) {
+                        if (JSON.parse(xhr1.response).response.message === 'ok') {
+                            showLoading(true);
+                            var xhr = new XMLHttpRequest();
+                            var url = "./api/v1/users/getname";
+                            xhr.open("POST", url, true);
+                            xhr.setRequestHeader('Content-Type', 'application/json');
+                            xhr.send(JSON.stringify({
+                                "nim": document.getElementById(nim).value
+                            }));
+                            xhr.onload = function () {
+                                var jsonResponse = JSON.parse(xhr.response);
+                                if (jsonResponse.response.name != null) {
+                                    document.getElementById(output).value = jsonResponse.response.name;
+                                    showLoading(false);
+                                } else if (jsonResponse.response.message != null) {
+                                    alert(jsonResponse.response.message);
+                                    showLoading(false);
+                                }
+                            };
+                            xhr.onerror = function () {
+                                alert("Request failed");
+                                showLoading(false);
+                            };
+                            document.getElementById(id).hidden = true;
+                        } else {
+                            document.getElementById(id).hidden = false;
+                        }
+                    }
                 }
             };
-            xhr.onerror = function () {
-                alert("Request failed");
-                showLoading(false);
-            };
+            xhr1.send(JSON.stringify({
+                "nim": document.getElementById(nim).value
+            }));
         }
     </script>
 </body>
