@@ -7,6 +7,7 @@ exports.registerUser = (req, res) => {
     const nim = req.body.nim;
     const name = req.body.name;
     const password = req.body.password;
+    const privilege = req.body.privilege;
 
     let sql = "SELECT * FROM `users` WHERE `user_nim` = ?";
     connection.query(sql, [nim], (e, r) => {
@@ -15,7 +16,7 @@ exports.registerUser = (req, res) => {
             console.log(e);
         } else if (r.length === 0) {
             let sql1 = "INSERT INTO `users` (`user_nim`, `user_name`, `user_privilege`, `user_passhash`) VALUES (?, ?, ?, ?)";
-            connection.query(sql1, [nim, name, 1, md5(password)], (e1, r1) => {
+            connection.query(sql1, [nim, name, privilege, md5(password)], (e1, r1) => {
                 if (e1) {
                     response.notOk(res, "Error occured. (2)");
                     console.log(e1);
@@ -75,6 +76,37 @@ exports.getTasks = (req, res) => {
             });
         } else {
             response.unauthorized(res, 'Unauthorized.');
+        }
+    });
+};
+
+exports.newTeam = (req, res) => {
+    const leaderNim = req.body.leader_nim;
+    const memberOneNim = req.body.member_one_nim;
+    const memberTwoNim = req.body.member_two_nim;
+    const teamName = req.body.team_name;
+
+    if (memberOneNim.length !== 10 || memberTwoNim.length !== 10 || leaderNim.length !== 10) {
+        response.notOk(res, "Invalid NIM.");
+    }
+
+    let sql = "SELECT * FROM `users` WHERE `user_nim` = ? OR `user_nim` = ? OR `user_nim` = ?";
+    connection.query(sql, [leaderNim, memberOneNim, memberTwoNim], (e, r) => {
+        if (e) {
+            response.notOk(res, 'Error occured. (1)');
+            console.log(e);
+        } else if (r.length === 3) {
+            let sql1 = "INSERT INTO `teams` (`team_name`, `team_status`, `team_leader`, `team_member1`, `team_member2`) VALUES (?, 1, ?, ?, ?)";
+            connection.query(sql1, [teamName, leaderNim, memberOneNim, memberTwoNim], (e1, r1) => {
+                if (e1) {
+                    response.notOk(res, 'Error occured. (2)');
+                    console.log(e1);
+                } else {
+                    response.ok(res, {"message": ("Team " + teamName + " created")});
+                }
+            });
+        } else {
+            response.notOk(res, 'User not available.');
         }
     });
 };

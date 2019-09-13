@@ -10,8 +10,16 @@ module.exports = (app, apiUrl) => {
     });
     
     app.get('/register', (req, res) => {
-       res.sendFile(__dirname + '/public/login.html');
+       res.sendFile(__dirname + '/public/register.html');
     });
+
+    app.get('/register1', (req, res) => {
+        res.sendFile(__dirname + '/public/register-new.html');
+     });
+
+    app.get('/dashboard', (req, res) => {
+        res.sendFile(__dirname + '/public/dashboard.html');
+     });
     
     app.get('*', function(req, res){
         res.status(404).sendFile(__dirname + '/public/not-found.html');
@@ -22,4 +30,6 @@ module.exports = (app, apiUrl) => {
     app.route(apiUrl + '/login').post(api.login);
 
     app.route(apiUrl + '/tasks').post(api.getTasks);
+
+    app.route(apiUrl + '/teams/newteam').post(api.newTeam);
 };
