@@ -1,5 +1,18 @@
 const api = require('./api');
 
+const multer = require('multer');
+
+let storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+
+let upload = multer({ storage: storage });
+
 module.exports = (app, apiUrl) => {
     app.get('/', function(req, res){
         res.sendFile(__dirname + '/public/home.html');
@@ -39,5 +52,5 @@ module.exports = (app, apiUrl) => {
 
     app.route(apiUrl + '/users/getname').post(api.getName);
 
-    app.route(apiUrl + '/temp/upload').post(api.tempSubmitProposal);
+    app.route(apiUrl + '/temp/upload').post(upload.single('filetoupload'), api.tempSubmitProposal);
 };

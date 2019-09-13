@@ -127,33 +127,37 @@ exports.getName = (req, res) => {
 };
 
 exports.tempSubmitProposal = (req, res) => {
-    const teamName = req.body.team_name;
-    const leaderNim = req.body.leader_nim;
-    const leaderName = req.body.leader_name;
-    const member1Nim = req.body.member1_nim;
-    const member1Name = req.body.member1_name;
-    const member2Nim = req.body.member2_nim;
-    const member2Name = req.body.member2_name;
+    if (!req.file) {
+        res.send("apa pulak yang kau kumpul, tot");
+    } else {
+        const teamName = req.body.team_name;
+        const leaderNim = req.body.leader_nim;
+        const leaderName = req.body.leader_name;
+        const member1Nim = req.body.member1_nim;
+        const member1Name = req.body.member1_name;
+        const member2Nim = req.body.member2_nim;
+        const member2Name = req.body.member2_name;
 
-    let sql = "SELECT * FROM `temp_proposal_submit` WHERE `team_name` = ? OR `leader_nim` = ? OR `member1_nim` = ? OR `member2_nim` = ?";
-    connection.query(sql, [teamName, leaderNim, member1Nim, member2Nim], (e, r) => {
-        if (e) {
-            response.notOk(res, 'Error occurred. (1)');
-            console.log(e);
-        } else {
-            if (r.length === 0) {
-                let sql1 = 'INSERT INTO `temp_proposal_submit` (`team_name`, `leader_nim`, `leader_name`, `member1_nim`, `member1_name`, `member2_nim`, `member2_name`, `submission`) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)';
-                connection.query(sql1, [teamName, leaderNim, leaderName, member1Nim, member1Name, member2Nim, member2Name], (e1, r1) => {
-                    if (e1) {
-                        response.notOk(res, 'Error occurred. (2)');
-                        console.log(e1);
-                    } else {
-                        response.ok(res, {"message": "Submit successful."});
-                    }
-                });
+        let sql = "SELECT * FROM `temp_proposal_submit` WHERE `team_name` = ? OR `leader_nim` = ? OR `member1_nim` = ? OR `member2_nim` = ?";
+        connection.query(sql, [teamName, leaderNim, member1Nim, member2Nim], (e, r) => {
+            if (e) {
+                response.notOk(res, 'Error occurred. (1)');
+                console.log(e);
             } else {
-                response.notOk(res, 'Team name not available or someone have joined another team.');
+                if (r.length === 0) {
+                    let sql1 = 'INSERT INTO `temp_proposal_submit` (`team_name`, `leader_nim`, `leader_name`, `member1_nim`, `member1_name`, `member2_nim`, `member2_name`, `submission`) VALUES (?, ?, ?, ?, ?, ?, ?, NULL)';
+                    connection.query(sql1, [teamName, leaderNim, leaderName, member1Nim, member1Name, member2Nim, member2Name], (e1, r1) => {
+                        if (e1) {
+                            response.notOk(res, 'Error occurred. (2)');
+                            console.log(e1);
+                        } else {
+                            response.ok(res, {"message": "Submit successful."});
+                        }
+                    });
+                } else {
+                    response.notOk(res, 'Team name not available or someone have joined another team.');
+                }
             }
-        }
-    });
+        });
+    }
 };
