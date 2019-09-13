@@ -41,10 +41,10 @@
                 <label for="teamLeaderNim">Team Leader's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" id="teamLeaderNim" placeholder="Enter Team Leader's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="teamLeaderNim" placeholder="Enter Team Leader's NIM">
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary" onclick="verifyTeamLeader()">Verify</button>
+                        <button class="btn btn-primary" onclick="verifyNim('teamLeaderNim', 'teamLeaderName')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -64,10 +64,10 @@
                 <label for="member1Nim">Member 1's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" id="member1Nim" placeholder="Enter Member 1's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="member1Nim" placeholder="Enter Member 1's NIM">
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary">Verify</button>
+                        <button class="btn btn-primary" onclick="verifyNim('member1Nim', 'member1Name')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -87,10 +87,10 @@
                 <label for="member2Nim">Member 2's NIM</label>
                 <div class="row">
                     <div class="col-sm-11">
-                        <input type="tel" class="form-control" id="member2Nim" placeholder="Enter Member 2's NIM">
+                        <input type="tel" class="form-control" pattern="[0-9]*" id="member2Nim" placeholder="Enter Member 2's NIM">
                     </div>
                     <div class="col-sm-1">
-                        <button class="btn btn-primary">Verify</button>
+                        <button class="btn btn-primary" onclick="verifyNim('member2Nim', 'member2Name')">Verify</button>
                     </div>
                 </div>
             </div>
@@ -130,13 +130,34 @@
         crossorigin="anonymous"></script>
 
     <script>
-        function verifyTeamLeader() {
-            var xmlhttp = new XMLHttpRequest();
-            var theUrl = "http://passthrough.mtcbin.us:3001/extractBinusian";
-            var nimm = document.getElementById("teamLeaderNim").value;
-            xmlhttp.open("POST", theUrl);
-            xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-            xmlhttp.send(JSON.stringify({ "nim": nimm }));
+        function verifyNim(nim, output) {
+            let valid = true;
+
+            if (document.getElementById(nim).value.length != 10) valid = false;
+
+            if (valid) getName(nim, output);
+            else alert("NIM Invalid");
+        }
+
+        function getName(nim, output) {
+            var xhr = new XMLHttpRequest();
+            var url = "./api/v1/users/getname";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.send(JSON.stringify({
+                "nim": document.getElementById(nim).value
+            }));
+            xhr.onload = function () {
+                var jsonResponse = JSON.parse(xhr.responseText);
+                if (jsonResponse.response.name != null) {
+                    document.getElementById(output).value = jsonResponse.response.name;
+                } else if (jsonResponse.response.message != null) {
+                    alert(jsonResponse.response.message);
+                }
+            };
+            xhr.onerror = function () {
+                alert("Request failed");
+            };
         }
     </script>
 </body>
