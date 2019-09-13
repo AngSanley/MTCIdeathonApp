@@ -128,9 +128,6 @@ exports.getName = (req, res) => {
 };
 
 exports.tempSubmitProposal = (req, res) => {
-    fs.unlink('./uploads/Dream_Morning.pdf', function(err) {
-        if (err) throw err;
-    });
     if (!req.file) {
         res.send("apa pulak yang kau kumpul, tot");
     } else {
