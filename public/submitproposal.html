@@ -196,20 +196,14 @@
 
         function verifyNim(nim, output) {
             let valid = true;
-            
-            showLoading(true);
-
             if (document.getElementById(nim).value.length != 10) valid = false;
 
-            if (valid) {
-                getName(nim, output);
-            } else {
-                alert("NIM Invalid");
-                showLoading(false);
-            }
+            if (valid) getName(nim, output);
+            else  alert("NIM Invalid");
         }
 
         function getName(nim, output) {
+            showLoading(true);
             var xhr = new XMLHttpRequest();
             var url = "./api/v1/users/getname";
             xhr.open("POST", url, true);
