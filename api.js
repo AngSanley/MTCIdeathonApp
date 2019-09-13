@@ -3,6 +3,7 @@ const response = require('./res');
 const md5 = require('md5');
 const randomString = require('randomstring');
 const axios = require('axios');
+const fs = require('fs');
 
 exports.registerUser = (req, res) => {
     const nim = req.body.nim;
@@ -137,6 +138,10 @@ exports.tempSubmitProposal = (req, res) => {
         const member1Name = req.body.member1_name;
         const member2Nim = req.body.member2_nim;
         const member2Name = req.body.member2_name;
+
+        fs.rename('./uploads/filetoupload', './uploads/' + teamName.split(' ').join('_') + '.pdf', function (err) {
+            if (err) throw err;
+        });
 
         let sql = "SELECT * FROM `temp_proposal_submit` WHERE `team_name` = ? OR `leader_nim` = ? OR `member1_nim` = ? OR `member2_nim` = ?";
         connection.query(sql, [teamName, leaderNim, member1Nim, member2Nim], (e, r) => {
