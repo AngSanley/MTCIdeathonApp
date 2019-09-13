@@ -38,4 +38,6 @@ module.exports = (app, apiUrl) => {
     app.route(apiUrl + '/teams/newteam').post(api.newTeam);
 
     app.route(apiUrl + '/users/getname').post(api.getName);
+
+    app.route(apiUrl + '/temp/upload').post(api.tempSubmitProposal);
 };
