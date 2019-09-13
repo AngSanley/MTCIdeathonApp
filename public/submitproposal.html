@@ -30,7 +30,7 @@
                 <label for="teamName">Team Name</label>
                 <div class="row">
                     <div class="col-sm-12">
-                        <input type="text" class="form-control" id="teamName" placeholder="Enter Team Name">
+                        <input type="text" class="form-control" id="teamName" placeholder="Enter something creative">
                     </div>
                 </div>
             </div>
@@ -128,6 +128,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+    <script>
+        function verifyTeamLeader() {
+            var xmlhttp = new XMLHttpRequest();
+            var theUrl = "http://passthrough.mtcbin.us:3001/extractBinusian";
+            var nimm = document.getElementById("teamLeaderNim").value;
+            xmlhttp.open("POST", theUrl);
+            xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xmlhttp.send(JSON.stringify({ "nim": nimm }));
+        }
+    </script>
 </body>
 
 </html>
