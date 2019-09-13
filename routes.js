@@ -52,7 +52,7 @@ module.exports = (app, apiUrl) => {
 
     app.route(apiUrl + '/users/getname').post(api.getName);
 
-    app.route(apiUrl + '/validate/nim').post(api.checkNim);
+    app.route(apiUrl + '/users/isregistered').post(api.checkNim);
 
     app.route(apiUrl + '/temp/upload').post(upload.single('filetoupload'), api.tempSubmitProposal);
 };
