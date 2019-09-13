@@ -130,6 +130,14 @@
         crossorigin="anonymous"></script>
 
     <script>
+        var url = new URL(window.location.href);
+        var nim = url.searchParams.get("nim");
+        
+        if (nim != null) {
+            document.getElementById("teamLeaderNim").value = nim;
+            verifyNim("teamLeaderNim", "teamLeaderName");
+        }
+
         function verifyNim(nim, output) {
             let valid = true;
 
