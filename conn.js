@@ -1,14 +1,14 @@
-// const mysql = require('mysql');
+const mysql = require('mysql');
 
-// let con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "",
-//   database: "ideathon19"
-// });
+let con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "ideathon19"
+});
 
-// con.connect(function (err){
-//     if(err) throw err;
-// });
+con.connect(function (err){
+    if(err) throw err;
+});
 
-// module.exports = con;
+module.exports = con;

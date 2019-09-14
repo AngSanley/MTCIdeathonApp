@@ -1,6 +1,6 @@
 let express = require('express');
 let app = express();
-// let api = require('./api');
+let api = require('./api');
 let bodyParser = require('body-parser');
 let routes = require('./routes');
 let cors = require('cors');
