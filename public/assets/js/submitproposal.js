@@ -19,6 +19,8 @@ document.querySelector('#submit-button').onclick = () => {
     const proposalFile = document.querySelector('#proposalFile');
     let validated = true;
 
+    showLoading(true);
+
     if (teamName.value === '') {
         document.querySelector('#teamNameError').hidden = false;
         validated = false;
@@ -78,6 +80,8 @@ document.querySelector('#submit-button').onclick = () => {
     if (validated) {
         document.querySelector('#submit-form').submit();
     }
+    
+    showLoading(false);
 };
 
 if (error != null) {
