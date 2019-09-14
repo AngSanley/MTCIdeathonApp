@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/dashboard.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload landing">
@@ -17,7 +18,7 @@
 						<ul>
 							<li><a href="/">Home</a></li>
                             <li><a href="/timeline">Timeline</a></li>
-                            <li><a href="http://wa.me/6282255474762" target="_blank">Contact</a></li>
+                            <li><a href="http://wa.me/6281211532513" target="_blank">Contact</a></li>
 							<li><a href="/register" class="button primary">Sign Up</a></li>
 						</ul>
 					</nav>
@@ -26,10 +27,13 @@
             <!-- Main -->
                 <main class="wrapper style1">
                     <h2>Hello, $name!</h2>
-                    <div class="tab">
-                            <button class="tablinks" onclick="openCity(event, 'Announcements')">Announcements</button>
-                            <button class="tablinks" onclick="openCity(event, 'Competition')">Competition</button>
-                     </div>
+                    <!-- <div class="tab">
+                            <button class="tablinks button" onclick="openCity(event, 'Announcements')">Announcements</button>
+                            <button class="tablinks button" onclick="openCity(event, 'Competition')">Competition</button>
+                     </div> -->
+                     <!-- Tab content -->
+                    <div id="task_parent" class="tabcontent">
+                    </div>
                 </main>
 
 			<!-- Footer -->
@@ -55,6 +59,7 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
-
+			<script src="assets/js/datetime.js"></script>
+			<script src="assets/js/dashboard.js"></script>
 	</body>
 </html>
