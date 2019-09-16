@@ -4,6 +4,7 @@ const md5 = require('md5');
 const randomString = require('randomstring');
 const axios = require('axios');
 const fs = require('fs');
+const cookie = require('cookie');
 
 exports.registerUser = (req, res) => {
     const nim = req.body.nim;
