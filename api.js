@@ -50,6 +50,11 @@ exports.login = (req, res) => {
                     response.notOk(res, "Error occured. (2)");
                     console.log(e1);
                 } else {
+                    // set kuki
+                    res.setHeader('Set-Cookie', cookie.serialize('session_id', sessionId, {
+                        httpOnly: true,
+                        maxAge: 60 * 60 * 24 * 0.5 // 1 week
+                    }));
                     response.ok(res, {"session_id": sessionId});
                 }
             });
@@ -60,7 +65,8 @@ exports.login = (req, res) => {
 };
 
 exports.getTasks = (req, res) => {
-    const sessionId = req.body.session_id;
+    let cookies = cookie.parse(req.headers.cookie || '');
+    let sessionId = cookies.session_id;
 
     let sql = "SELECT * FROM `users` WHERE `user_session` = ?";
     connection.query(sql, [sessionId], (e, r) => {

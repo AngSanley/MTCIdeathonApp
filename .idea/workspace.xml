@@ -4,7 +4,6 @@
     <list default="true" id="9d1b4260-b105-4bf0-8c36-0bf92aaf879b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/api.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,12 +31,6 @@
         <option value="$PROJECT_DIR$/.idea/vcs.xml" />
       </list>
     </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="85" />
-    <option name="y" value="25" />
-    <option name="width" value="1750" />
-    <option name="height" value="980" />
   </component>
   <component name="ProjectId" id="1QvA30V1roVTANtksKUQ3PsCDxe" />
   <component name="PropertiesComponent">
@@ -87,7 +80,7 @@
       <updated>1568310008248</updated>
       <workItem from="1568310011857" duration="21442000" />
       <workItem from="1568639940895" duration="518000" />
-      <workItem from="1568640496468" duration="565000" />
+      <workItem from="1568640496468" duration="3018000" />
     </task>
     <servers />
   </component>
