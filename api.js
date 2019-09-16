@@ -120,6 +120,23 @@ exports.newTeam = (req, res) => {
     });
 };
 
+exports.getTeamProfile = (req, res) => {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const sessionId = cookies.session_id;
+
+    let sql = "SELECT b.`team_name`, b.`team_status`, b.`team_leader`, b.`team_member1`, b.`team_member2`, b.`mentor` FROM (`users` as a INNER JOIN `teams` as b ON a.`user_nim` = b.`team_leader_nim`) WHERE a.`user_session` = ?";
+    connection.query(sql, [sessionId], (e, r) => {
+        if (e) {
+            response.unauthorized(res, 'Error occurred. (1)');
+            console.log(e);
+        } else if (r.length === 1) {
+            response.ok(res, r[0]);
+        } else {
+            response.unauthorized(res, 'Unauthorized.');
+        }
+    });
+};
+
 exports.getName = (req, res) => {
     const NIM = req.body.nim;
     axios.post('http://passthrough.mtcbin.us:3001/extractBinusian', {

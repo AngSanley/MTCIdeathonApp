@@ -1,5 +1,25 @@
 //Code with 💗 in my kost
 
+const xhr = new XMLHttpRequest();
+const url = './api/v1/teams/profile';
+
+xhr.open('GET', url, true);
+xhr.onreadystatechange = () => {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+        if (xhr.status === 200) {
+            const res = JSON.parse(xhr.response);
+            document.querySelector('#team_name').innerText = res.team_name;
+            document.querySelector('#team_leader').innerText = res.team_leader;
+            document.querySelector('#team_member1').innerText = res.team_member1;
+            document.querySelector('#team_member2').innerText = res.team_member2;
+            document.querySelector('#mentor').innerText = res.mentor;
+        } else {
+
+        }
+    }
+};
+xhr.send();
+
 const jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpulan Proposal",'+
           '"task_description":"Tolong upload proposal yang telah kalian buat dengan format PDF/ZIP.",'+
           '"task_accept_submission":1, "task_date_from":"2019-09-13T00:00:00.000Z",'+
@@ -12,9 +32,9 @@ const jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpula
           '"task_date_to":"2019-09-15T00:00:00.000Z"}]}';
 let obj = JSON.parse(jeson);
 
-if(obj.status == 200) obj.response.forEach(addchild);
+if(obj.status === 200) obj.response.forEach(addChild);
 
-function addchild(item,index) {
+function addChild(item, index) {
     document.getElementById("task_parent").innerHTML +=
     '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
     submission(item.task_accept_submission,item.task_date_to)+'</div>';

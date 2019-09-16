@@ -37,10 +37,6 @@ module.exports = (app, apiUrl) => {
     app.get('/proposalupload', (req, res) => {
         res.sendFile(__dirname + '/public/submitproposal.html');
     });
-    
-    app.get('*', function(req, res){
-        res.status(404).sendFile(__dirname + '/public/not-found.html');
-    });
 
     app.route(apiUrl + '/signup').post(api.registerUser);
 
@@ -50,9 +46,15 @@ module.exports = (app, apiUrl) => {
 
     app.route(apiUrl + '/teams/newteam').post(api.newTeam);
 
+    app.route(apiUrl + '/teams/profile').get(api.getTeamProfile);
+
     app.route(apiUrl + '/users/getname').post(api.getName);
 
     app.route(apiUrl + '/users/isregistered').post(api.checkNim);
 
     app.route(apiUrl + '/temp/upload').post(upload.single('filetoupload'), api.tempSubmitProposal);
+
+    app.get('*', function(req, res){
+        res.status(404).sendFile(__dirname + '/public/not-found.html');
+    });
 };
