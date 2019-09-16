@@ -1,0 +1,17 @@
+.kartu {
+    background-color: #272833;
+    padding: 24px;
+    margin: 24px 0;
+    border-radius: 4px;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+hr {
+    margin: 0;
+}

@@ -38,6 +38,10 @@ module.exports = (app, apiUrl) => {
         res.sendFile(__dirname + '/public/submitproposal.html');
     });
 
+    app.get('/login', (req, res) => {
+        res.sendFile(__dirname + '/public/login.html');
+    });
+
     app.route(apiUrl + '/signup').post(api.registerUser);
 
     app.route(apiUrl + '/login').post(api.login);
