@@ -1,10 +1,13 @@
 //Code with 💗 in my kost
 
-let jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpulan Proposal",'+
+const jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpulan Proposal",'+
           '"task_description":"Tolong upload proposal yang telah kalian buat dengan format PDF/ZIP.",'+
           '"task_accept_submission":1, "task_date_from":"2019-09-13T00:00:00.000Z",'+
           '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":2,'+
           '"task_name":"Bersihin Kotoran Kucing di Karpet", "task_description":"Tolong itu eek kucingnya dibuang.",'+
+          '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
+          '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":3,'+
+          '"task_name":"Pengumuman List Mentor", "task_description":"Selamat kepada kelompok yang telah lolos pada seleksi tahap I. Berikut adalah list mentor beserta kelompok yang telah dipilih:</br>Team H[Array]: Andre Taulany</br>QB-Team: Kevin</br>Luis Anthonie Alkins</br>OurPriority Group: Handika Limanto</br>LIQUID: Daniel Anadi</br>LIA-TEAM: Davia Belinda Hidayat</br>Reinhart, Andy, Hendry: Arvin</br>Ciwi MAT: Devita Setyaningrum</br>Jaterpok: Jesselyn</br>Team Code RED: Christopher Teddy",'+
           '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
           '"task_date_to":"2019-09-15T00:00:00.000Z"}]}';
 let obj = JSON.parse(jeson);

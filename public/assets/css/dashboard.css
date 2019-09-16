@@ -16,3 +16,9 @@ h3 {
 .submission{
     margin-top: 24px;
 }
+
+#profile_parent {
+    padding: 24px;
+    margin: 24px;
+    border-radius: 4px;
+}
