@@ -89,6 +89,7 @@ function editProfile() {
 
     if (count === 10) {
         userName.innerHTML = "<span style=\"color:red\">You are disqualified!!! :)</span>";
+        // awas suara setan
         const linkSuara = "http://soundbible.com/grab.php?id=2019&type=mp3";
         const audio = new Audio(linkSuara).play();
         return;

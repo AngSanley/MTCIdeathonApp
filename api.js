@@ -137,6 +137,22 @@ exports.getTeamProfile = (req, res) => {
     });
 };
 
+exports.setNewPassword = (req, res) => {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const sessionId = cookies.session_id;
+    const password = req.body.password;
+
+    let sql = 'UPDATE `users` SET `user_passhash` = ? WHERE `user_session` = ?';
+    connection.query(sql, [md5(password), sessionId], (e, r) => {
+        if (e) {
+            response.unauthorized(res, 'Error occurred. (1)');
+            console.log(e);
+        } else {
+            response.ok(res, {"message": "Password set."})
+        }
+    });
+};
+
 exports.getName = (req, res) => {
     const NIM = req.body.nim;
     axios.post('http://passthrough.mtcbin.us:3001/extractBinusian', {
