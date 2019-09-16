@@ -1,4 +1,5 @@
 //Code with 💗 in my kost
+//Code with hand in my room
 
 const xhr = new XMLHttpRequest();
 const url = './api/v1/teams/profile';
@@ -59,7 +60,7 @@ function submission(validation,deadline){
 
     var submission_date = day(date.getDay()) + ", " + String(date.getDate()) + " " + month(date.getMonth()) + " " + String(date.getFullYear());
 
-    if(validation == 1){
+    if(validation === 1){
         //for some reason, use client-side validation
         if(date.getTime()<=Date.now()){
             return '<div class="submission"><button class="button" style="margin-right:16px" disabled>Upload</button> Deadline: '+submission_date+'</div>';
