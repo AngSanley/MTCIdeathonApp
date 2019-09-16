@@ -46,7 +46,7 @@ module.exports = (app, apiUrl) => {
 
     app.route(apiUrl + '/login').post(api.login);
 
-    app.route(apiUrl + '/tasks').post(api.getTasks);
+    app.route(apiUrl + '/tasks').get(api.getTasks);
 
     app.route(apiUrl + '/teams/newteam').post(api.newTeam);
 

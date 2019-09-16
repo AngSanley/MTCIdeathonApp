@@ -6,13 +6,14 @@ const url = './api/v1/teams/profile';
 xhr.open('GET', url, true);
 xhr.onreadystatechange = () => {
     if (xhr.readyState === XMLHttpRequest.DONE) {
-        if (xhr.status === 200) {
+        if (xhr.status === 200 || xhr.status === 304) {
             const res = JSON.parse(xhr.response);
-            document.querySelector('#team_name').innerText = res.team_name;
-            document.querySelector('#team_leader').innerText = res.team_leader;
-            document.querySelector('#team_member1').innerText = res.team_member1;
-            document.querySelector('#team_member2').innerText = res.team_member2;
-            document.querySelector('#mentor').innerText = res.mentor;
+            document.querySelector('#team_name').innerHTML = res.response.team_name;
+            document.querySelector('#team_leader').innerText = res.response.team_leader;
+            document.querySelector('#user_name').innerText = res.response.team_leader;
+            document.querySelector('#team_member1').innerText = res.response.team_member1;
+            document.querySelector('#team_member2').innerText = res.response.team_member2;
+            document.querySelector('#mentor').innerText = res.response.mentor;
         } else {
 
         }
@@ -20,19 +21,32 @@ xhr.onreadystatechange = () => {
 };
 xhr.send();
 
-const jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpulan Proposal",'+
-          '"task_description":"Tolong upload proposal yang telah kalian buat dengan format PDF/ZIP.",'+
-          '"task_accept_submission":1, "task_date_from":"2019-09-13T00:00:00.000Z",'+
-          '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":2,'+
-          '"task_name":"Bersihin Kotoran Kucing di Karpet", "task_description":"Tolong itu eek kucingnya dibuang.",'+
-          '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
-          '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":3,'+
-          '"task_name":"Pengumuman List Mentor", "task_description":"Selamat kepada kelompok yang telah lolos pada seleksi tahap I. Berikut adalah list mentor beserta kelompok yang telah dipilih:</br>Team H[Array]: Andre Taulany</br>QB-Team: Kevin</br>Luis Anthonie Alkins</br>OurPriority Group: Handika Limanto</br>LIQUID: Daniel Anadi</br>LIA-TEAM: Davia Belinda Hidayat</br>Reinhart, Andy, Hendry: Arvin</br>Ciwi MAT: Devita Setyaningrum</br>Jaterpok: Jesselyn</br>Team Code RED: Christopher Teddy",'+
-          '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
-          '"task_date_to":"2019-09-15T00:00:00.000Z"}]}';
-let obj = JSON.parse(jeson);
+const xhr1 = new XMLHttpRequest();
+const url1 = './api/v1/tasks';
 
-if(obj.status === 200) obj.response.forEach(addChild);
+xhr1.open('GET', url1, true);
+xhr1.onreadystatechange = () => {
+    if (xhr1.readyState === XMLHttpRequest.DONE) {
+        if (xhr1.status === 200) {
+            let obj = JSON.parse(xhr1.response);
+            if (obj.status === 200) obj.response.forEach(addChild);
+        } else {
+
+        }
+    }
+};
+xhr1.send();
+
+// const jeson = '{ "status":200,"response":[ { "task_id":1,"task_name":"Pengumpulan Proposal",'+
+//           '"task_description":"Tolong upload proposal yang telah kalian buat dengan format PDF/ZIP.",'+
+//           '"task_accept_submission":1, "task_date_from":"2019-09-13T00:00:00.000Z",'+
+//           '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":2,'+
+//           '"task_name":"Bersihin Kotoran Kucing di Karpet", "task_description":"Tolong itu eek kucingnya dibuang.",'+
+//           '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
+//           '"task_date_to":"2019-09-15T00:00:00.000Z"},{ "task_id":3,'+
+//           '"task_name":"Pengumuman List Mentor", "task_description":"Selamat kepada kelompok yang telah lolos pada seleksi tahap I. Berikut adalah list mentor beserta kelompok yang telah dipilih:</br>Team H[Array]: Andre Taulany</br>QB-Team: Kevin</br>Luis Anthonie Alkins</br>OurPriority Group: Handika Limanto</br>LIQUID: Daniel Anadi</br>LIA-TEAM: Davia Belinda Hidayat</br>Reinhart, Andy, Hendry: Arvin</br>Ciwi MAT: Devita Setyaningrum</br>Jaterpok: Jesselyn</br>Team Code RED: Christopher Teddy",'+
+//           '"task_accept_submission":0,"task_date_from":"2019-09-13T00:00:00.000Z",'+
+//           '"task_date_to":"2019-09-15T00:00:00.000Z"}]}';
 
 function addChild(item, index) {
     document.getElementById("task_parent").innerHTML +=
