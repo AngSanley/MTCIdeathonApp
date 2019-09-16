@@ -42,6 +42,10 @@ module.exports = (app, apiUrl) => {
         res.sendFile(__dirname + '/public/login.html');
     });
 
+    app.get('/newpassword', (req, res) => {
+        res.sendFile(__dirname + '/public/new-password.html');
+    });
+
     app.route(apiUrl + '/signup').post(api.registerUser);
 
     app.route(apiUrl + '/login').post(api.login);

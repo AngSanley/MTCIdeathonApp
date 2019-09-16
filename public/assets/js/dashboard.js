@@ -17,8 +17,10 @@ xhr.onreadystatechange = () => {
             document.querySelector('#team_member1').innerText = res.response.team_member1;
             document.querySelector('#team_member2').innerText = res.response.team_member2;
             document.querySelector('#mentor').innerText = res.response.mentor;
+        } else if (xhr.status === 401) {
+            window.location = '/';
         } else {
-
+            alert("Unknown error");
         }
     }
 };

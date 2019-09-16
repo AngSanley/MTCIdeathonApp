@@ -50,12 +50,18 @@ exports.login = (req, res) => {
                     response.notOk(res, "Error occured. (2)");
                     console.log(e1);
                 } else {
-                    // set kuki
                     res.setHeader('Set-Cookie', cookie.serialize('session_id', sessionId, {
                         httpOnly: true,
                         maxAge: 60 * 60 * 24 * 0.5 // 1 week
                     }));
-                    response.ok(res, {"session_id": sessionId});
+                    // if default password
+                    if (password === 'IDEATHON19') {
+                        // suruh ganti password
+                        response.ok(res, {"session_id": sessionId, "change_password": true});
+                    } else {
+                        // set kuki
+                        response.ok(res, {"session_id": sessionId});
+                    }
                 }
             });
         } else {
