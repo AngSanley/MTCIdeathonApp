@@ -1,6 +1,8 @@
 //Code with 💗 in my kost
 //Code with hand in my room
 
+let foo = "";
+
 const xhr = new XMLHttpRequest();
 const url = './api/v1/teams/profile';
 
@@ -31,6 +33,7 @@ xhr1.onreadystatechange = () => {
         if (xhr1.status === 200) {
             let obj = JSON.parse(xhr1.response);
             if (obj.status === 200) obj.response.forEach(addChild);
+            document.getElementById("task_parent").innerHTML += foo;
         } else {
 
         }
@@ -50,9 +53,11 @@ xhr1.send();
 //           '"task_date_to":"2019-09-15T00:00:00.000Z"}]}';
 
 function addChild(item, index) {
-    document.getElementById("task_parent").innerHTML +=
-    '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
-    submission(item.task_accept_submission,item.task_date_to)+'</div>';
+    // document.getElementById("task_parent").innerHTML +=
+    // '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
+    // submission(item.task_accept_submission,item.task_date_to)+'</div>';
+    foo = '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
+        submission(item.task_accept_submission,item.task_date_to)+'</div>' + foo;
 }
 
 function submission(validation,deadline){
@@ -75,4 +80,18 @@ function submission(validation,deadline){
     else{
         return '';
     }
+}
+
+let count = 0;
+function editProfile() {
+    let userName = document.querySelector("#user_name");
+    userName.innerText = "mas saya lelah ngoding nya, tolong maafkan ya kalo belum bisa hehehe";
+
+    if (count === 10) {
+        userName.innerHTML = "<span style=\"color:red\">You are disqualified!!! :)</span>";
+        const linkSuara = "http://soundbible.com/grab.php?id=2019&type=mp3";
+        const audio = new Audio(linkSuara).play();
+        return;
+    } else if (count > 5) alert("WOI JANGAN DIKLIK MULU DONG " + (10 - count));
+    ++count;
 }
