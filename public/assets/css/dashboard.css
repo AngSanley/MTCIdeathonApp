@@ -22,3 +22,17 @@ h3 {
     margin: 24px;
     border-radius: 4px;
 }
+
+@media (max-width: 735px) { 
+    #dashboard_content {
+      display: flex;
+      flex-direction: column-reverse;
+    }
+  }
+
+@media (min-width: 736px){ 
+    #dashboard_content {
+      display: flex;
+      flex-direction: row;
+    }
+  }
