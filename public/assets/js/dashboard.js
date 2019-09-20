@@ -59,12 +59,11 @@ function addChild(item, index) {
     // '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
     // submission(item.task_accept_submission,item.task_date_to)+'</div>';
     foo = '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
-        submission(item.task_accept_submission,item.task_date_to)+'</div>' + foo;
+        submission(item.task_accept_submission, item.task_date_to, index)+'</div>' + foo;
 }
 
-function submission(validation,deadline){
+function submission(validation, deadline, index) {
     var date = new Date(deadline);
-
     var submission_date = day(date.getDay()) + ", " + String(date.getDate()) + " " + month(date.getMonth()) + " " + String(date.getFullYear());
 
     if(validation === 1){
@@ -72,7 +71,13 @@ function submission(validation,deadline){
         if(date.getTime()<=Date.now()){
             return '<div class="submission"><button class="button" style="margin-right:16px" disabled>Upload</button> Deadline: '+submission_date+'</div>';
         }
-        else return '<div class="submission"><button class="button" style="margin-right:16px">Upload</button> Deadline: '+submission_date+'</div>';
+        // TODO: consume api
+        else return '<form class="custom-form" id="form' + index + '" method="post" action="#"><div class="submission">' +
+            '<input id="file' + index + '" class="file-uploader" type="file" name="filetoupload" accept="application/zip">' +
+            '<label for="file' + index + '"><a class="button">Browse</a></label>' +
+            '<label class="file-uploader-label">No file detected</label>' +
+            '<button class="button" style="margin-left: 32px;">Upload</button><span>saya belum diganti menjadi logo centang</span></div></form>' +
+            '<small>Deadline: '+submission_date+'</small>';
     }
 
     // else if(validation == 2){

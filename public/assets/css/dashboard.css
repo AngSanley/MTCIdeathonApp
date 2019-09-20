@@ -15,6 +15,10 @@ h3 {
 
 .submission{
     margin-top: 24px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 #profile_parent {
@@ -36,3 +40,32 @@ h3 {
       flex-direction: row;
     }
   }
+
+.file-uploader {
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.file-uploader + label {
+    display: flex;
+    margin-bottom: 0;
+    flex-direction: row;
+    align-items: center;
+}
+
+.file-uploader + label > a {
+    height: auto;
+    line-height: 1em;
+    padding: 4px;
+}
+
+.custom-form {
+    margin-bottom: 8px;
+}
+
+.file-uploader-label {
+    margin: 0 0 0 16px;
+    width: 200px;
+}
