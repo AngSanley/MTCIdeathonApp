@@ -69,14 +69,16 @@ function submission(validation, deadline, index) {
     if(validation === 1){
         //for some reason, use client-side validation
         if(date.getTime()<=Date.now()){
-            return '<div class="submission"><button class="button" style="margin-right:16px" disabled>Upload</button> Deadline: '+submission_date+'</div>';
+            return '<br><br><small><i class="fas fa-ghost" style="margin-right: 8px;"></i>Submission is closed. You are doomed.<i class="fas fa-ghost" style="margin-left: 8px;"></i></small><br><small>Deadline: ' + submission_date + '</small>';
         }
         // TODO: consume api
         else return '<form class="custom-form" id="form' + index + '" method="post" action="#"><div class="submission">' +
             '<input id="file' + index + '" class="file-uploader" type="file" name="filetoupload" accept="application/zip">' +
             '<label for="file' + index + '"><a class="button">Browse</a></label>' +
             '<label class="file-uploader-label">No file detected</label>' +
-            '<button class="button" style="margin-left: 32px;">Upload</button><span>saya belum diganti menjadi logo centang</span></div></form>' +
+            '<button class="button" style="margin-left: 32px;">Upload</button></div></form>' +
+            '<i class="fas fa-times" style="color: red;"></i>' +
+            '<small style="margin-left: 12px;">Your team has not uploaded the file</small><br>' +
             '<small>Deadline: '+submission_date+'</small>';
     }
 
