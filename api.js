@@ -128,6 +128,10 @@ exports.submitTask = (req, res) => {
         const taskId = req.body.task_id;
         const path = './uploads/' + taskId + '/';
 
+        if (!fs.existsSync(path)) {
+            fs.mkdirSync(path);
+        }
+
         let sql = "SELECT `teams`.`team_name` FROM `teams` INNER JOIN `users` ON `users`.`user_nim` = `teams`.`team_leader_nim` WHERE `users`.`user_session` = ?";
         connection.query(sql, [sessionId], (e, r) => {
             if (e) {
