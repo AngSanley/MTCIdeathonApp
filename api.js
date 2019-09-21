@@ -126,7 +126,7 @@ exports.submitTask = (req, res) => {
         const cookies = cookie.parse(req.headers.cookie || '');
         const sessionId = cookies.session_id;
         const taskId = req.body.task_id;
-        const path = './uploads/' + taskId + '/';
+        const path = './uploads/';
 
         if (!fs.existsSync(path)) {
             fs.mkdirSync(path);
