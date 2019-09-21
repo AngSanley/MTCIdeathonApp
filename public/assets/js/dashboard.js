@@ -3,6 +3,16 @@
 
 let foo = "";
 
+const urlParams = new URLSearchParams(window.location.search);
+
+if (urlParams.has('error')) {
+    console.log('error');
+    alert(urlParams.get('error'));
+} else if (urlParams.has('success')) {
+    alert('Your file is uploaded');
+    console.log('success');
+}
+
 const xhr = new XMLHttpRequest();
 const url = './api/v1/teams/profile';
 
@@ -35,7 +45,35 @@ xhr1.onreadystatechange = () => {
         if (xhr1.status === 200) {
             let obj = JSON.parse(xhr1.response);
             if (obj.status === 200) obj.response.forEach(addChild);
+            console.log('done');
             document.getElementById("task_parent").innerHTML += foo;
+            for (let i = 0; i < obj.response.length; ++i) {
+                if (obj.response[i].task_accept_submission === 1) {
+                    let a = document.getElementById('btn' + obj.response[i].task_id);
+                    let c = document.querySelector('#file' + obj.response[i].task_id);
+                    if (a) {
+                        a.onclick = () => {
+                            let b = document.querySelector('#form' + obj.response[i].task_id);
+                            if (c) {
+                                if (c.files.length === 1) {
+                                    b.submit();
+                                } else {
+                                    alert('File can\'t be empty');
+                                }
+                            }
+                        };
+                    }
+                    if (c) {
+                        c.onchange = () => {
+                            let e = document.getElementById('label' + obj.response[i].task_id);
+                            if (e) {
+                                console.log('ok');
+                                e.innerText = c.value.substr(c.value.lastIndexOf('\\') + 1);
+                            }
+                        };
+                    }
+                }
+            }
         } else {
 
         }
@@ -58,11 +96,29 @@ function addChild(item, index) {
     // document.getElementById("task_parent").innerHTML +=
     // '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
     // submission(item.task_accept_submission,item.task_date_to)+'</div>';
-    foo = '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
-        submission(item.task_accept_submission, item.task_date_to, index)+'</div>' + foo;
+    // const xhr2 = new XMLHttpRequest();
+    // const url2 = './api/v1/teams/checksubmission';
+    // const params2 = JSON.stringify({
+    //     "task_id": item.task_id
+    // });
+    //
+    // xhr2.open('post', url2, true);
+    // xhr2.setRequestHeader('content-type', 'application/json');
+    // xhr2.onreadystatechange = () => {
+    //     if (xhr2.readyState === XMLHttpRequest.DONE) {
+    //         if (xhr2.status === 200) {
+    //             const exists = JSON.parse(xhr2.response).response.exists;
+                foo = '<div class="task_content"><h3>'+item.task_name+'</h3><hr>'+item.task_description+
+                    submission(item.task_accept_submission, item.task_date_to, index, item.task_id)+'</div>' + foo;
+    //         } else {
+    //
+    //         }
+    //     }
+    // };
+    // xhr2.send(params2);
 }
 
-function submission(validation, deadline, index) {
+function submission(validation, deadline, index, taskId) {
     var date = new Date(deadline);
     var submission_date = day(date.getDay()) + ", " + String(date.getDate()) + " " + month(date.getMonth()) + " " + String(date.getFullYear());
 
@@ -71,16 +127,29 @@ function submission(validation, deadline, index) {
         if(date.getTime()<=Date.now()){
             return '<br><br><small><i class="fas fa-ghost" style="margin-right: 8px;"></i>Submission is closed. You are doomed.<i class="fas fa-ghost" style="margin-left: 8px;"></i></small><br><small>Deadline: ' + submission_date + '</small>';
         }
-        // TODO: consume api
-        else return '<form class="custom-form" id="form' + index + '" method="post" action="#"><div class="submission">' +
-            '<input id="file' + index + '" class="file-uploader" type="file" name="filetoupload" accept="application/zip">' +
-            '<label for="file' + index + '"><a class="button">Browse</a></label>' +
-            '<label class="file-uploader-label">No file detected</label>' +
-            '<button class="button" style="margin-left: 32px;">Upload</button></div></form>' +
-            '<i class="fas fa-times" style="color: red;"></i>' +
-            '<small style="margin-left: 12px;">Your team has not uploaded the file</small><br>' +
-            '<small>Deadline: '+submission_date+'</small>';
-    }
+        // else if (!exists) {
+            return '<form class="custom-form" id="form' + taskId + '" method="post" enctype="multipart/form-data" action="./api/v1/teams/dosubmission"><div class="submission">' +
+                '<input id="file' + taskId + '" class="file-uploader" type="file" name="filetoupload" accept="application/zip">' +
+                '<label for="file' + taskId + '"><a class="button">Browse</a></label>' +
+                '<label id="label' + taskId + '" class="file-uploader-label">No file selected</label>' +
+                '<button type="button" id="btn' + taskId + '" class="button" style="margin-left: 32px;">Upload</button></div>' +
+                '<input name="task_id" value="' + taskId + '" hidden> </form>' +
+                // '<i class="fas fa-times" style="color: red;"></i>' +
+                // '<small style="margin-left: 12px;">Your team has not uploaded the file</small><br>' +
+                '<br><small>Deadline: ' + submission_date + '</small>';
+        }
+        // } else {
+        //     return '<form class="custom-form" id="form' + taskId + '" method="post" enctype="multipart/form-data" action="./api/v1/teams/dosubmission"><div class="submission">' +
+        //         '<input id="file' + taskId + '" class="file-uploader" type="file" name="filetoupload" accept="application/zip">' +
+        //         '<label for="file' + taskId + '"><a class="button">Browse</a></label>' +
+        //         '<label class="file-uploader-label">No file selected</label>' +
+        //         '<button type="button" id="btn' + taskId + '" class="button" style="margin-left: 32px;">Upload</button></div>' +
+        //         '<input name="task_id" value="' + taskId + '" hidden> </form>' +
+        //         '<i class="fas fa-check" style="color: green;"></i>' +
+        //         '<small style="margin-left: 12px;">Your team has not uploaded the file</small><br>' +
+        //         '<small>Deadline: '+submission_date+'</small>';
+        // }
+    // }
 
     // else if(validation == 2){
     // return '<div class="submission"><button class="button" style="margin-right:16px">Upload</button> Deadline: '+submission_date+'</div>';

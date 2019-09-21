@@ -56,6 +56,10 @@ module.exports = (app, apiUrl) => {
 
     app.route(apiUrl + '/teams/profile').get(api.getTeamProfile);
 
+    app.route(apiUrl + '/teams/dosubmission').post(upload.single('filetoupload'), api.submitTask);
+
+    app.route(apiUrl + '/teams/checksubmission').post(api.checkFile);
+
     app.route(apiUrl + '/users/getname').post(api.getName);
 
     app.route(apiUrl + '/users/newpassword').post(api.setNewPassword);

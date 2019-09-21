@@ -95,6 +95,80 @@ exports.getTasks = (req, res) => {
     });
 };
 
+exports.checkFile = (req, res) => {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const sessionId = cookies.session_id;
+    const taskId = req.body.task_id;
+    const path = './uploads/' + taskId + '/';
+
+    let sql = "SELECT `teams`.`team_name` FROM `teams` INNER JOIN `users` ON `users`.`user_nim` = `teams`.`team_leader_nim` WHERE `users`.`user_session` = ?";
+    connection.query(sql, [sessionId], (e, r) => {
+        if (e) {
+            response.notOk('Error occured. (1)');
+            console.log(e);
+        } else if (r.length === 1) {
+            const teamName = r[0].team_name;
+            if (fs.existsSync(path + teamName.split(' ').join('_') + '.zip')) {
+                response.ok(res, {'exists': true});
+            } else {
+                response.ok(res, {'exists': false});
+            }
+        } else {
+            response.unauthorized('Session expired.');
+        }
+    });
+};
+
+exports.submitTask = (req, res) => {
+    if (!req.file) {
+        res.redirect('/dashboard');
+    } else {
+        const cookies = cookie.parse(req.headers.cookie || '');
+        const sessionId = cookies.session_id;
+        const taskId = req.body.task_id;
+        const path = './uploads/' + taskId + '/';
+
+        let sql = "SELECT `teams`.`team_name` FROM `teams` INNER JOIN `users` ON `users`.`user_nim` = `teams`.`team_leader_nim` WHERE `users`.`user_session` = ?";
+        connection.query(sql, [sessionId], (e, r) => {
+            if (e) {
+                response.notOk(res, 'Error occurred. (1)');
+                console.log(e);
+                fs.unlink('./uploads/filetoupload', function(err) {
+                    if (err) throw err;
+                });
+                res.redirect('/dashboard?error=Something went wrong');
+            } else if (r.length === 1) {
+                const teamName = r[0].team_name;
+                if (fs.existsSync(path + teamName.split(' ').join('_') + '.zip')) {
+                    fs.unlink(path + '/' + teamName.split(' ').join('_') + '.zip', function(err) {
+                        if (err) throw err;
+                        if (!fs.existsSync(path)) {
+                            fs.mkdirSync(path);
+                        }
+                        fs.rename('./uploads/filetoupload', path + teamName.split(' ').join('_') + '.zip', function(err) {
+                            if (err) throw err;
+                        });
+                    });
+                } else {
+                    if (!fs.existsSync(path)) {
+                        fs.mkdirSync(path);
+                    }
+                    fs.rename('./uploads/filetoupload', path + teamName.split(' ').join('_') + '.zip', function(err) {
+                        if (err) throw err;
+                    });
+                }
+                res.redirect('/dashboard?success=1');
+            } else {
+                fs.unlink('./uploads/filetoupload', function(err) {
+                    if (err) throw err;
+                });
+                response.unauthorized(res, 'Session expired.');
+                res.redirect('/dashboard?error=You are not authorized');
+            }
+        });
+    }
+};
+
 exports.newTeam = (req, res) => {
     const leaderNim = req.body.leader_nim;
     const memberOneNim = req.body.member_one_nim;
